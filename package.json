@@ -1,0 +1,28 @@
+{
+  "name": "wabot",
+  "version": "1.0.0",
+  "description": "md bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yasuntha/sage.git"
+  },
+  "keywords": [
+    "wdm"
+  ],
+  "author": "Yasuntha",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/yasuntha/sage/issues"
+  },
+  "homepage": "https://github.com/yasuntha/sage#readme",
+  "dependencies": {
+    "chromium": "^3.0.3",
+    "puppeteer": "^19.11.1",
+    "venom-bot": "^5.0.0",
+    "wapi": "^1.0.41"
+  }
+}
