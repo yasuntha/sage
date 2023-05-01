@@ -1,34 +1,54 @@
-const qrcode = require('qrcode-terminal');
-const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
+const venom = require('venom-bot');
 
-const client = new Client({
-  authStrategy: new LocalAuth(),
-});
+// start the client
+venom.create().then((client) => {
 
-client.initialize();
+  // define the phone number to send the message to
+  const phoneNumber = '94741090547@c.us';
 
-client.on('qr', (qr) => {
-  qrcode.generate(qr, { small: true });
-});
+  // define the message text for the "Hi" button
+  const messageTextHi = 'Hello! How can I assist you today?';
 
-client.on('authenticated', () => {
-  console.log('AUTHENTICATED');
-});
+  // define the message text for the "Bye" button
+  const messageTextBye = 'Goodbye! Have a nice day.';
 
-client.on('ready', () => {
-  console.log('Client is ready!');
-});
+  // define the button objects
+  const buttonHi = {
+    buttonText: 'Hi',
+    buttonId: 'btn_hi',
+    hideText: false
+  };
 
-client.on('message', async (message) => {
-  if (message.body === 'meme') {
-    //get media from url
-    const media = await MessageMedia.fromUrl(
-      'https://user-images.githubusercontent.com/41937681/162612030-11575069-33c2-4df2-ab1b-3fb3cb06f4cf.png'
-    );
+  const buttonBye = {
+    buttonText: 'Bye',
+    buttonId: 'btn_bye',
+    hideText: false
+  };
 
-    //replying with media
-    client.sendMessage(message.from, media, {
-      caption: 'meme',
-    });
-  }
+  // define the message object with the buttons
+  const message = {
+    phone: phoneNumber,
+    content: messageTextHi,
+    buttons: [buttonHi, buttonBye]
+  };
+
+  // send the message with buttons
+  client.sendButtons(message).then((result) => {
+
+    // check if the message was sent successfully
+    if (result.success) {
+      console.log('Message sent successfully!');
+    } else {
+      console.error('Failed to send message.');
+    }
+
+    // log out of WhatsApp
+    client.close().then(() => console.log('Client closed.'));
+
+  }).catch((error) => {
+    console.error(error);
+  });
+
+}).catch((error) => {
+  console.error(error);
 });
