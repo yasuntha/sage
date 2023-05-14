@@ -1,39 +1,32 @@
-const venom = require('venom-bot');
+const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
-venom.create().then((client) => {
-    start(client);
+const client = new Client();
+
+client.on('qr', qr => {
+  qrcode.generate(qr, { small: true });
 });
 
-function start(client) {
-    client.onMessage(async (message) => {
-        if (message.body === '.hi') {
-            const text = `Hi, this is echo.`
-            const content = { 'message': { 'text': text } }
-            const options = {
-                "reply_markup": {
-                    "inline_keyboard": [
-                        [
-                            {
-                                "text": "Owner",
-                                "url": "https://wa.me/94741090547"
-                            },
-                            {
-                                "text": "Github",
-                                "url": "https://github.com/yasuntha/sage"
-                            }
-                        ]
-                    ]
-                }
-            }
-            await client.sendMessage(message.from, content, options);
-        }
-    });
+client.on('ready', () => {
+  console.log('Client is ready!');
 
-    client.onStateChange((state) => {
-        if (state.qrcode) {
-            console.log('QR Code:');
-            qrcode.generate(state.qrcode, { small: true });
-        }
-    });
-}
+  // Set the initial about message
+  client.setStatus(`It's a new day!`);
+
+  // Update the about message every second
+  setInterval(() => {
+    const now = new Date();
+    const hours = now.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+
+    const timeString = `${formattedHours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+
+    client.setStatus(`It's currently ${timeString}`);
+  }, 1000);
+});
+
+client.initialize();
+
