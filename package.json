@@ -1,17 +1,17 @@
 {
-  "name": "wabot",
+  "name": "whatsappbot",
   "version": "1.0.0",
-  "description": "md bot",
-  "main": "app.js",
+  "description": "md wabot",
+  "main": "echo.js",
   "scripts": {
-    "test": "node app.js"
+    "test": ".echo"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yasuntha/sage.git"
   },
   "keywords": [
-    "wdm"
+    "hjeirfch"
   ],
   "author": "Yasuntha",
   "license": "UNLICENSED",
@@ -20,9 +20,15 @@
   },
   "homepage": "https://github.com/yasuntha/sage#readme",
   "dependencies": {
-    "chromium": "^3.0.3",
-    "puppeteer": "^19.11.1",
-    "venom-bot": "^5.0.0",
-    "wapi": "^1.0.41"
+    "@open-wa/wa-automate": "^4.65.0",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "puppeteer": "^20.0.0",
+    "wapi": "^1.0.41",
+    "whatsapp-web.js": "^1.19.5",
+    "yt-search": "^2.10.4",
+    "ytdl-core": "^4.11.4"
   }
 }
+
